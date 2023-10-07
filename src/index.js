@@ -1,5 +1,5 @@
-import oneRec from "./modules/one";
-import twoRec from "./modules/two";
+import timer from "./modules/timer";
+// import twoRec from "./modules/two";
 
-oneRec();
-twoRec();
+timer("22 october 2023");
+// twoRec();
