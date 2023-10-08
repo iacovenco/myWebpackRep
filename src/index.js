@@ -1,5 +1,7 @@
 import timer from "./modules/timer";
-// import twoRec from "./modules/two";
+import menu from "./modules/menu";
+import modal from "./modules/modal";
 
 timer("22 october 2023");
-// twoRec();
+menu();
+modal();
