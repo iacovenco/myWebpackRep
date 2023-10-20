@@ -1,58 +1,89 @@
 const through = () => {
-  // Получаем ссылки на поля ввода
-  // 1) Валидация поля ввода имени
-  const nameInput = document.querySelector(".form-name");
-  nameInput.addEventListener("input", function (e) {
-    const value = e.target.value;
-    // Регулярное выражение для проверки на допустимые символы
+  // Функция для валидации имени
+  function validateName(input) {
     const regex = /^[а-яА-ЯёЁ\s-]+$/;
-    if (!regex.test(value)) {
-      e.target.setCustomValidity(
-        "Пожалуйста, введите только кириллицу, дефис или пробел"
-      );
-    } else {
-      e.target.setCustomValidity("");
-    }
-  });
 
-  // 2) Валидация поля ввода email
-  const emailInput = document.querySelector(".form-email");
-  emailInput.addEventListener("input", function (e) {
-    const value = e.target.value;
-    // Регулярное выражение для проверки на допустимые символы
-    const regex = /^[a-zA-Z0-9@!\-_.'*~]+$/;
-    if (!regex.test(value)) {
-      e.target.setCustomValidity(
-        "Пожалуйста, введите только латинские буквы, цифры и символы: @ - _ . ! ~ * '"
-      );
-    } else {
-      e.target.setCustomValidity("");
+    if (!regex.test(input.value)) {
+      input.value = input.value.replace(/[^а-яА-ЯёЁ\s-]/g, "");
     }
-  });
 
-  // 3) Валидация поля ввода телефона
-  const phoneInput = document.querySelector(".form-phone");
-  phoneInput.addEventListener("input", function (e) {
-    const value = e.target.value;
-    // Регулярное выражение для проверки на допустимые символы
-    const regex = /^[\d()+-]+$/;
-    if (!regex.test(value)) {
-      e.target.setCustomValidity(
-        "Пожалуйста, введите только цифры, круглые скобки и дефис"
-      );
-    } else {
-      e.target.setCustomValidity("");
+    //Приводим первую букву каждого слова  к верхнему регистру, а остальные к нижнему
+    input.value = input.value
+      .toLowerCase()
+      .replace(/(?:^|\s|-)\S/g, function (match) {
+        return match.toUpperCase();
+      });
+
+    // Удаляем пробелы и дефисы в начале и конце значения
+    input.value = input.value.trim();
+  }
+
+  // Функция для валидации email
+  function validateEmail(input) {
+    const regex =
+      /^[a-zA-Z0-9]+[a-zA-Z0-9.!*_'-]*@[a-zA-Z0-9]+\.[a-zA-Z0-9.]+$/;
+
+    if (!regex.test(input.value)) {
+      input.value = "";
     }
+  }
+
+  // Функция для валидации телефона
+  function validatePhone(input) {
+    const regex = /^[0-9()+-]+$/;
+
+    if (!regex.test(input.value)) {
+      input.value = input.value.replace(/[^0-9()+-]/g, "");
+    }
+
+    // Заменяем несколько идущих подряд пробелов или дефисов на один
+    input.value = input.value.replace(/(\s{2,}|-{2,})/g, function (match) {
+      return match.charAt(0);
+    });
+
+    // Удаляем пробелы и дефисы в начале и конце значения
+    input.value = input.value.trim();
+  }
+
+  // Получаем все элементы формы
+  const formOneName = document.getElementById("form1-name");
+  const formOneEmail = document.getElementById("form1-email");
+  const formOnePhone = document.getElementById("form1-phone");
+  const formTwoName = document.getElementById("form2-name");
+  const formTwoEmail = document.getElementById("form2-email");
+  const formTwoPhone = document.getElementById("form2-phone");
+  const formThreeName = document.getElementById("form3-name");
+  const formThreeEmail = document.getElementById("form3-email");
+  const formThreePhone = document.getElementById("form3-phone");
+
+  // Добавляем обработчики события blur для полей формы
+  formOneName.addEventListener("blur", function () {
+    validateName(formOneName);
+  });
+  formOneEmail.addEventListener("blur", function () {
+    validateEmail(formOneEmail);
+  });
+  formOnePhone.addEventListener("blur", function () {
+    validatePhone(formOnePhone);
+  });
+  formTwoName.addEventListener("blur", function () {
+    validateName(formTwoName);
+  });
+  formTwoEmail.addEventListener("blur", function () {
+    validateEmail(formTwoEmail);
+  });
+  formTwoPhone.addEventListener("blur", function () {
+    validatePhone(formTwoPhone);
+  });
+  formThreeName.addEventListener("blur", function () {
+    validateName(formThreeName);
+  });
+  formThreeEmail.addEventListener("blur", function () {
+    validateEmail(formThreeEmail);
+  });
+  formThreePhone.addEventListener("blur", function () {
+    validatePhone(formThreePhone);
   });
 };
-
-/*
-НЕ ПОНИМАЮ
-1)Я получаю все классы form,но работает только первый блок с этими классами
-пробовал получать по id,тогда все ок,но кода много.Что я делаю не так?
-2)Почему-то у email нет такого приоритета как у имени или телефона.
-То-есть если ввожу имя и телефон кнопка заявки срабатывает и все хороши,но если введу имя и email
-кнопка не срабатывает и даже если после этого ввести номер,кнопка все равно не работает.Подскажите пожалуйста и тут(
-*/
 
 export default through;
