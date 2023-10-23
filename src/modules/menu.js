@@ -1,28 +1,31 @@
 const menu = () => {
-  const menuBtn = document.querySelector(".menu");
   const menu = document.querySelector("menu");
-  const closeBtn = menu.querySelector(".close-btn");
   const menuItems = menu.querySelectorAll("ul>li>a");
-  //const button = document.querySelector(".scroll_btn");
 
-  const handleMenu = () => {
-    menu.classList.toggle("active-menu");
+  // Функция для открытия и закрытия меню
+  const handleMenu = (e) => {
+    if (e.target.closest(".menu")) {
+      menu.classList.toggle("active-menu");
+    } else if (e.target.closest(".close-btn")) {
+      menu.classList.remove("active-menu");
+    }
   };
 
-  menuBtn.addEventListener("click", handleMenu);
+  // Добавляем обработчик клика на документ
+  document.addEventListener("click", handleMenu);
 
-  closeBtn.addEventListener("click", handleMenu);
-
+  // Функция для плавного скроллинга к секции
   const smoothScroll = (target) => {
     const targetElement = document.querySelector(target);
     targetElement.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Добавляем обработчик клика на пункты меню
   menuItems.forEach((item) => {
-    item.addEventListener("click", (event) => {
-      event.preventDefault(); // Отменяем действие по умолчанию (например, переход по ссылке)
-      const target = event.target.getAttribute("href"); // Получаем целевой элемент для прокрутки
-      smoothScroll(target); // Вызываем функцию плавной прокрутки
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = e.target.getAttribute("href");
+      smoothScroll(target);
     });
   });
 };

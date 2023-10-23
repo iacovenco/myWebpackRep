@@ -65,6 +65,14 @@ const modal = () => {
       modal.style.display = "none";
     });
   }
+
+  modal.addEventListener("click", (e) => {
+    if (
+      !e.target.closest(".popup-content") // || e.target.contains("popup-close")
+    ) {
+      closeAnimation();
+    }
+  });
 };
 
 export default modal;

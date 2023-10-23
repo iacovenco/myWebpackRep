@@ -3,9 +3,11 @@ import menu from "./modules/menu";
 import modal from "./modules/modal";
 import calc from "./modules/calc";
 import through from "./modules/through";
+import tabs from "./modules/tabs";
 
 timer("25 october 2023");
 menu();
 modal();
 calc();
 through();
+tabs();
