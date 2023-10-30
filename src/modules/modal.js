@@ -1,42 +1,24 @@
+import { animate } from "./helpers.js";
+
 const modal = () => {
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
   const closeBtn = modal.querySelector(".popup-close");
 
-  //Добавляем анимацию открытия модального окна
+  // Добавляем анимацию открытия модального окна
   const animateModal = () => {
-    let opacity = 0;
-    modal.style.opacity = opacity;
+    modal.style.opacity = 0;
 
-    const open = setInterval(() => {
-      if (opacity >= 1) {
-        clearInterval(open);
-      } else {
-        opacity += 0.01;
-        modal.style.opacity = opacity;
-      }
-    }, 10);
+    animate(modal, "opacity", 0, 1, 500);
   };
 
   // Добавляем анимацию закрытия модального окна
   const closeAnimation = () => {
-    let opacity = 1;
+    animate(modal, "opacity", 1, 0, 500);
 
-    const close = setInterval(() => {
-      if (opacity <= 0) {
-        clearInterval(close);
-        modal.style.display = "none";
-      } else {
-        opacity -= 0.01;
-        modal.style.opacity = opacity;
-      }
-    }, 10);
-  };
-
-  //Сбрасываем анимацию
-  //(для того чтобы при последующих вызовах анимация не слетала)
-  const resetModal = () => {
-    modal.classList.remove("fadeIn");
+    setTimeout(() => {
+      modal.style.display = "none";
+    }, 500);
   };
 
   //Адаптируем под вызов под размер экрана пользователя
@@ -46,7 +28,6 @@ const modal = () => {
       btn.addEventListener("click", () => {
         modal.style.display = "block";
         animateModal();
-        resetModal();
       });
     });
 
@@ -65,14 +46,6 @@ const modal = () => {
       modal.style.display = "none";
     });
   }
-
-  modal.addEventListener("click", (e) => {
-    if (
-      !e.target.closest(".popup-content") // || e.target.contains("popup-close")
-    ) {
-      closeAnimation();
-    }
-  });
 };
 
 export default modal;
