@@ -1,4 +1,4 @@
-import { animate } from "./helpers.js";
+import animate from "./helpers.js";
 
 const modal = () => {
   const modal = document.querySelector(".popup");

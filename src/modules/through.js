@@ -45,6 +45,14 @@ const through = () => {
     input.value = input.value.trim();
   }
 
+  // В поля name="user_message" разрешаем только кириллицу, пробелы, цифры и знаки препинания.
+  function validateMessege(input) {
+    var regex = /^[а-яА-ЯёЁ0-9\s.,!?;:()-]+$/;
+    if (!regex.test(input.value)) {
+      input.value = input.value.replace(/[^а-яА-ЯёЁ0-9\s.,!?;:()-]/g, "");
+    }
+  }
+
   // Получаем все элементы формы
   const formOneName = document.getElementById("form1-name");
   const formOneEmail = document.getElementById("form1-email");
@@ -55,6 +63,7 @@ const through = () => {
   const formThreeName = document.getElementById("form3-name");
   const formThreeEmail = document.getElementById("form3-email");
   const formThreePhone = document.getElementById("form3-phone");
+  const formMessege = document.getElementById("form2-message");
 
   // Добавляем обработчики события blur для полей формы
   formOneName.addEventListener("blur", function () {
@@ -83,6 +92,9 @@ const through = () => {
   });
   formThreePhone.addEventListener("blur", function () {
     validatePhone(formThreePhone);
+  });
+  formMessege.addEventListener("blur", function () {
+    validateMessege(formMessege);
   });
 };
 
