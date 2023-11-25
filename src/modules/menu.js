@@ -26,8 +26,8 @@ const menu = () => {
       e.preventDefault();
       const target = e.target.getAttribute("href");
       smoothScroll(target);
+      menu.classList.remove("active-menu"); // Закрыть меню после плавной прокрутки
     });
   });
 };
-
 export default menu;

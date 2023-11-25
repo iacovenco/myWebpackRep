@@ -48,6 +48,10 @@ const sendForm = ({ formId, someElem = [] }) => {
         .then((data) => {
           statusBlock.textContent = successText;
 
+          setTimeout(() => {
+            form.removeChild(statusBlock);
+          }, 5000);
+
           formElements.forEach((input) => {
             input.value = "";
           });

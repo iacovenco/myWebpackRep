@@ -4,6 +4,9 @@ const tabs = () => {
   const tabs = document.querySelectorAll(".service-header-tab");
   const tabContent = document.querySelectorAll(".service-tab");
 
+  //Получаем кнопку scroll_btn из верхнего блока
+  const scrollBtn = document.querySelector(".scroll_btn");
+
   //Перебираем кнопки
   tabPanel.addEventListener("click", (e) => {
     if (e.target.closest(".service-header-tab")) {
@@ -19,6 +22,18 @@ const tabs = () => {
         }
       });
     }
+  });
+
+  //Делаем плавную прокрутку кнопки scroll_btn из верхнего блока
+  scrollBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    const targetOffset = target.offsetTop;
+
+    window.scrollTo({
+      top: targetOffset,
+      behavior: "smooth",
+    });
   });
 };
 
